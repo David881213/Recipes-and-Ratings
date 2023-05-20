@@ -47,10 +47,35 @@ We use `pd.to_datetime` to transformed data in the two columns to timestamp.
 | 412 broccoli casserole               | 306168 |        40 |            50969 | 2008-05-30 00:00:00 | ['60-minutes-or-less', 'time-to-make', 'course...] |         6 | ['preheat oven to 350 degrees', 'spray a 2 qua...] | since there are already 411 recipes for brocco... | ['frozen broccoli cuts', 'cream of chicken sou...] |               9 | 768828           |      306168 | 2013-08-02 00:00:00 |        5 | Loved this.  Be sure to completely thaw the br... |            5 |      194.8 |          20 |       6 |       32 |        22 |              36 |               3 |
 
 ## Univariate Analysis
+#### 1.	We generate the histogram that state the distribution of total rating.
+
+<iframe src="assets/Number of ratings.html" width=800 height=600 frameBorder=0></iframe>
+
+We can clearly find that rating of 5 star is the most rated, which is far more than others. So, we may should focus on the distribution of the ratings.
+
+#### 2.	We generate the histogram of the number of total reviews in each year.
+
+<iframe src="assets/Number of review in each year.html" width=800 height=600 frameBorder=0></iframe>
+
+We can find that the number of reviews per year is declining almost every year since 2009, overall showing a decreasing trend.
 
 ## Bivariate Analysis
 
+#### 1.	We like to see the distribution of rating changes over time, so we generate line chart that ratings of 1 to 5 star and year.
+
+<iframe src="assets/Multiple Rating Chart.html" width=800 height=600 frameBorder=0></iframe>
+
+From the line chart, we can find out that ranting 5 star is always the most rating within the 5 ratings, but the total number of rating decline in a rapid speed each year. This help to observe the distribution of rating and consider to generate hypothesis test questions.
+
+#### 2.	We plot the scatter plot of the relationship between total fat and calories.
+
+<iframe src="assets/Scatter plot of total fat on calories.html" width=800 height=600 frameBorder=0></iframe>
+
+We can see that there is a positive correlation between total fat and calories.
+
 ## Interesting Aggregates
+
+
 
 ## Assessment of Missingness
 First, let's take a look at the missing values in the dataset:
