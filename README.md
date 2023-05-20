@@ -121,6 +121,33 @@ The result of permutation test and p-value:
 
 Hence, we **reject the null hypothesis** that the distribution of `calories` when `rating` is missing is the same as the distribution of `calories` when `rating` is not missing. Hence, we conclude that the missingness in the `rating` column is MAR dependent on `calories` .
 
+#### 2. Use permutation test to determine if values in a `rating` column are MAR dependent on `minutes` column.
+
+To test whether the `rating` column is MAR dependent on `minutes` column:
+We have our
+
+**Null hypothesiss**: *H<sub>0</sub>*: the distribution of `minutes` when `rating` is missing is the same as the distribution of `minutes` when `rating` is not missing. And 
+
+**alternative hypothesis**: *H<sub>a</sub>*: the distribution of `minutes` when `rating` is missing is not the same as the distribution of `minutes` when `rating` is not missing.
+
+First, let us looked at the mean of the `minutes` based on the missingness of the `rating` values.
+
+| rating_status   |   minutes |
+|:----------------|----------:|
+| False           |   103.49  |
+| True            |   154.942 |
+
+Minutes by Rating Status:
+
+<iframe src="assets/Minutes by Rating Status.html" width=800 height=600 frameBorder=0></iframe>
+
+Since `rating` is categorical and `minutes` is numerical, we use mean difference as test statistics to run the permutation test.
+Then, we perform the permutation test of mean difference and find out the p-value.
+
+The result of permutation test and p-value:
+<iframe src="assets/Permutation test of rating and minutes.html" width=800 height=600 frameBorder=0></iframe>
+
+Hence, we **fail to reject the null hypothesis** that the distribution of `minutes` when `rating` is missing is the same as the distribution of `minutes` when `rating` is not missing. Hence, we conclude that the missingness in the `rating` column is not MAR dependent on `minutes` .
 ## Hypothesis Testing
 
 
