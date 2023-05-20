@@ -75,7 +75,23 @@ We can see that there is a positive correlation between total fat and calories.
 
 ## Interesting Aggregates
 
+#### We create pivot table by 'date year', 'rating' column and exam aggregate statistics of mean calories.
 
+|   date year |     1.0 |     2.0 |     3.0 |     4.0 |     5.0 |
+|------------:|--------:|--------:|--------:|--------:|--------:|
+|        2008 | 423.078 | 439.531 | 399.924 | 393.426 | 381.724 |
+|        2009 | 402.172 | 412.855 | 406.237 | 412.033 | 411.16  |
+|        2010 | 374.292 | 407.845 | 448.419 | 386.521 | 392.315 |
+|        2011 | 424.43  | 458.717 | 420.413 | 393.102 | 405.219 |
+|        2012 | 485.634 | 443.383 | 377.45  | 404.506 | 412.093 |
+|        2013 | 467.188 | 464.784 | 430.592 | 406.745 | 438.165 |
+|        2014 | 478.428 | 419.141 | 483.446 | 406.731 | 443.62  |
+|        2015 | 574.179 | 464.92  | 494.436 | 464.476 | 487.102 |
+|        2016 | 483.974 | 501.667 | 392.359 | 454.129 | 481.53  |
+|        2017 | 567.373 | 470.976 | 509.53  | 465.268 | 457.456 |
+|        2018 | 581.357 | 520.778 | 467.675 | 456.574 | 491.634 |
+
+We can find from the pivot table that basically 5-star rating always had the lowest mean calories, on the contrary, 1-star has the highest. At the same time, we also found that the overall mean calories are increasing year by year. 
 
 ## Assessment of Missingness
 First, let's take a look at the missing values in the dataset:
@@ -153,7 +169,7 @@ We have our
 
 **Null hypothesiss**: *H<sub>0</sub>*: the distribution of `minutes` when `rating` is missing is the same as the distribution of `minutes` when `rating` is not missing. And 
 
-**alternative hypothesis**: *H<sub>a</sub>*: the distribution of `minutes` when `rating` is missing is not the same as the distribution of `minutes` when `rating` is not missing.
+**Alternative hypothesis**: *H<sub>a</sub>*: the distribution of `minutes` when `rating` is missing is not the same as the distribution of `minutes` when `rating` is not missing.
 
 First, let us looked at the mean of the `minutes` based on the missingness of the `rating` values.
 
@@ -175,22 +191,58 @@ The result of permutation test and p-value:
 Hence, we **fail to reject the null hypothesis** that the distribution of `minutes` when `rating` is missing is the same as the distribution of `minutes` when `rating` is not missing. Hence, we conclude that the missingness in the `rating` column is not MAR dependent on `minutes` .
 ## Hypothesis Testing
 
+Pivot table between year and rating:
 
+|   date year |   1.0 |   2.0 |   3.0 |   4.0 |   5.0 |
+|------------:|------:|------:|------:|------:|------:|
+|        2008 |   205 |   276 |  1138 |  6808 | 22209 |
+|        2009 |   267 |   398 |  1529 |  8659 | 36053 |
+|        2010 |   244 |   302 |  1051 |  5984 | 27943 |
+|        2011 |   205 |   244 |   818 |  4581 | 21717 |
+|        2012 |   204 |   181 |   597 |  3363 | 18114 |
+|        2013 |   259 |   197 |   607 |  3104 | 16156 |
+|        2014 |   288 |   157 |   359 |  1606 |  8983 |
+|        2015 |   320 |   166 |   339 |   978 |  5571 |
+|        2016 |   240 |   141 |   256 |   721 |  3908 |
+|        2017 |   327 |   162 |   250 |   817 |  5027 |
+|        2018 |   311 |   144 |   228 |   686 |  3995 |
 
+We create the pivot table between year and rating and found out that there is a huge gap of number of ratings between 2013 and 2014. Thus, we like to investigate that whether the distribution of ratings is the same before and after the gap, which is 2014.
 
+Distribution of rating before and after 2014:
 
+|   rating |     After |     Before |
+|---------:|----------:|-----------:|
+|        1 | 0.0413007 | 0.00754581 |
+|        2 | 0.0214008 | 0.00871258 |
+|        3 | 0.0397999 | 0.0312955  |
+|        4 | 0.13363   | 0.17719    |
+|        5 | 0.763869  | 0.775256   |
 
+#### 1. The null and alternative hypothesis: 
 
+Under the significance level &#945; = 0.05.
 
+**Null hypothesiss**: *H<sub>0</sub>*: the distributions of `rating` of each star number is the same before and after 2014. 
 
+**Alternative hypothesis**: *H<sub>a</sub>*: the distributions of `rating` of each star number is not the same before and after 2014.
 
+#### 2. Select test statistics:
 
-This is a test:
-<iframe src="assets/Number of ratings.html" width=800 height=600 frameBorder=0></iframe>
+Since both `rating` and `after shrinkage`(’Before’ for ratings before 2014, ‘After’ for ratings after 2014) columns we have use are categorical, we choose TVD as the test statistic.
 
-This is a test od merged head:
+#### 3. Simulation steps:
 
-| rating_status   |   minutes |
-|:----------------|----------:|
-| False           |   103.49  |
-| True            |   154.942 |
+Under the null hypothesis, we assume that the distribution of each rating is the same before and after 2014, thus, the distribution of ratings won't be effect whether it is before or after 2014.
+
+#### 4. Test and p-value:
+
+We do the test under &#945; = 0.05 since its commonly used, simulate for 1000 times and collect test statistics to generate p-value.
+
+<iframe src="assets/Hypothesis test of year and rating distribution.html" width=800 height=600 frameBorder=0></iframe>
+
+#### 5. Conclusion:
+
+Since the test p-value is 0.0 which is smaller than &#945; = 0.05, we **reject the null hypothesis** that the distribution of each rating is the same before and after 2014.
+
+Since we do not have randomized controlled trials, we can only conclude that people may change their rating standard after a period.
