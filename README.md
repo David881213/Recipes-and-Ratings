@@ -53,6 +53,70 @@ We use `pd.to_datetime` to transformed data in the two columns to timestamp.
 ## Interesting Aggregates
 
 ## Assessment of Missingness
+First, let's take a look at the missing values in the dataset:
+
+|             |   missing |
+|:------------|----------:|
+| name        |         1 |
+| description |       114 |
+| user_id     |         1 |
+| recipe_id   |         1 |
+| date        |         1 |
+| rating      |     15036 |
+| review      |        58 |
+| ave_rating  |      2777 |
+| date year   |         1 |
+
+1. The missing values of `user_id`, `recipe_id`, `date` and `date year` are missing values due to merging two data frames, and the reason of missing is not related to their own column themselves are not related. Therefore, we believe that their missing type is not NMAR.
+
+2. We observe that some users are used to not taking names or writing descriptions when submitting recipes, and the missing `name` and `description` may be related to the `user_id`, so we also believe that the missing type of `name` and `description` is not NMAR.
+
+3. For the missing value of the `review`, we observe that the `review` is a missing value when the reviewer uses only pictures in the review. the missingness is caused by the rules in the data collection process rather than by the specific properties of the missing value itself, so we consider that the missing type of the `review` is not NMAR but MD.
+
+4. `ave_rating` is the column we derived from the rating, so we believe the missing type of `ave_rating` is not NMAR.
+
+5. According to what we have mentioned in Cleaning and EDA, the `rating`'s missing value does not depend on its own specific properties, so we believe that `ratiing`'s missing type is not NMAR.
+
+Overall, we believe that all columns that contain a missing value have a missing type that is not NMAR.
+
+|             |   missing | NMAR   |
+|:------------|----------:|:-------|
+| name        |         1 | False  |
+| description |       114 | False  |
+| user_id     |         1 | False  |
+| recipe_id   |         1 | False  |
+| date        |         1 | False  |
+| rating      |     15036 | False  |
+| review      |        58 | False  |
+| ave_rating  |      2777 | False  |
+| date year   |         1 | False  |
+
+### MAR Dependent determination
+
+1. Use permutation test to determine if values in a `rating` column are MAR dependent on `calories` column.
+
+To test whether the `rating` column is MAR dependent on `calories` column:
+We have our
+
+**Null hypothesiss**: $H_{0}$: the distribution of `calories` when `rating` is missing is the same as the distribution of `calories` when `rating` is not missing. And 
+
+**Alternative hypothesis**: $H_{a}$: the distribution of `calories` when `rating` is missing is not the same as the distribution of `calories` when `rating` is not missing.
+
+First, let us looked at the mean of the calories based on the missingness of the rating values.
+
+| rating_status   |   calories |
+|:----------------|-----------:|
+| False           |    415.103 |
+| True            |    484.11  |
+
+Calories by Rating Status:
+
+<iframe src="assets/Calories by Rating Status.html" width=800 height=600 frameBorder=0></iframe>
+
+
+Since `rating` is categorical and `calories` is numerical, we use mean difference as test statistics to run the permutation test. Then, we perform the permutation test of mean difference and find out the p-value.
+
+
 
 ## Hypothesis Testing
 
