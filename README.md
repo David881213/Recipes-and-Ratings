@@ -93,14 +93,14 @@ Overall, we believe that all columns that contain a missing value have a missing
 
 ### MAR Dependent determination
 
-1. Use permutation test to determine if values in a `rating` column are MAR dependent on `calories` column.
+#### 1. Use permutation test to determine if values in a `rating` column are MAR dependent on `calories` column.
 
 To test whether the `rating` column is MAR dependent on `calories` column:
 We have our
 
-**Null hypothesiss**: $H_{0}$: the distribution of `calories` when `rating` is missing is the same as the distribution of `calories` when `rating` is not missing. And 
+**Null hypothesiss**: *H<sub>0</sub>*: the distribution of `calories` when `rating` is missing is the same as the distribution of `calories` when `rating` is not missing. And 
 
-**Alternative hypothesis**: $H_{a}$: the distribution of `calories` when `rating` is missing is not the same as the distribution of `calories` when `rating` is not missing.
+**Alternative hypothesis**: *H<sub>a</sub>*: the distribution of `calories` when `rating` is missing is not the same as the distribution of `calories` when `rating` is not missing.
 
 First, let us looked at the mean of the calories based on the missingness of the rating values.
 
@@ -116,7 +116,10 @@ Calories by Rating Status:
 
 Since `rating` is categorical and `calories` is numerical, we use mean difference as test statistics to run the permutation test. Then, we perform the permutation test of mean difference and find out the p-value.
 
+The result of permutation test and p-value:
+<iframe src="assets/Permutation test of rating and calories.html" width=800 height=600 frameBorder=0></iframe>
 
+Hence, we **reject the null hypothesis** that the distribution of `calories` when `rating` is missing is the same as the distribution of `calories` when `rating` is not missing. Hence, we conclude that the missingness in the `rating` column is MAR dependent on `calories` .
 
 ## Hypothesis Testing
 
